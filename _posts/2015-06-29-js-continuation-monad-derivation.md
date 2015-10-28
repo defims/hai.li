@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "移动端webview点击延迟处理"
+title: "js continuation monad简明推导"
 date: 2015-06-29 11:52:49
 categories: frontend
 tags: frontend javascript continuation monad
