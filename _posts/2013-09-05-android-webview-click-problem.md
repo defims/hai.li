@@ -8,7 +8,7 @@ tags: android frontend fastclick
 
 移动端webview在处理click事件的时候会有一定的延迟。我们可以用[fastclick](http://ftlabs.github.io/fastclick/)来解决，但[fastclick](http://ftlabs.github.io/fastclick/)未压缩23k，压缩后8k，比较重，这里有一个简易的解决方案：
 
-{% highlight javascript %}
+```javascript
 function onFastClick(element ,handler) {
     var delay = 300,
         offset = 10,
@@ -44,4 +44,4 @@ function onFastClick(element ,handler) {
 onFastClick(document ,function() {
     console.log("fastclick")
 })
-{% highlight %}
+```
