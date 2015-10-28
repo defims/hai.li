@@ -29,7 +29,10 @@ codepen:  defims
 
 
 # Build settings
-markdown: kramdown
+markdown: redcarpet
+redcarpet:
+    extensions: ["fenced_code_blocks", "autolink", "tables", "strikethrough"]
+# markdown: kramdown
 sass:
   style: compressed
 gems:
