@@ -2,7 +2,6 @@
 layout: post
 title:  "移动端webview点击延迟处理"
 date:   2013-09-05 22:21:49
-categories: frontend
 tags: mobile frontend fastclick
 ---
 

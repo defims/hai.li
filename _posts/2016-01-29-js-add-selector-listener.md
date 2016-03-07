@@ -2,7 +2,6 @@
 layout: post
 title: "css选择器监听器addSelectorListener"
 date: 2016-01-29 18:13:00
-categories: frontend
 tags: frontend javascript css
 ---
 
