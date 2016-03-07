@@ -2,7 +2,6 @@
 layout: post
 title:  "多行省略"
 date:   2016-03-05 15:54:10
-categories: frontend
 tags: mobile frontend lines wrap getClientRects getRowRects line-clamp
 ---
 
