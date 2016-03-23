@@ -9,7 +9,7 @@ tags: mobile frontend lines wrap getClientRects getRowRects line-clamp
 
 文字默认多行展示，当超过n行后，在第n行最后显示`...更多`，原有第三行`...更多`处的文字自动隐藏
 
-## line-clamp
+## 简单有效line-clamp
 
 首先的反应是`-webkit-line-clamp`，当只显示省略号，且在webkit内核的时候非常完美，css代码也相对容易理解：
 
@@ -32,18 +32,14 @@ tags: mobile frontend lines wrap getClientRects getRowRects line-clamp
 - [ftellipsis Way](https://github.com/ftlabs/ftellipsis) 这个和我的思路核心都是利用`Element.getClientRects`获取客户矩形数组来处理，但[强依赖手动设定px的line-height](https://github.com/ftlabs/ftellipsis/blob/master/lib/index.js#L541)，且省略显示内容是动态插入的，需要改动js才能自定义，可参考
 - [TextOverflowClamp.js Way]()，这个思路比较特别，直接将多行变成多个单行来处理，无法自定义省略时的`...`，忽略
 
-## 算法
+## getRowRects方案
+
+### 计算行数
 
 - 通过[getClientRects](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/getClientRects)获取客户矩形数组
-- 不同`top`不同的客户矩形数量就是行数
-
-## 原理
-
-这里用客户矩形(client rect)而没用行框(line box)，内联框或者块级框，因为几者没有非常一致的对应，[示例](http://codepen.io/defims/pen/XdmPmV)可以看出，容器内联，不管子元素内联还是块级，都可以通过判断`getClientRects`返回的客户矩形数组的不同高度个数得到行数
-
-## getRowRects
-
-进一步扩展为[getRowRects](http://codepen.io/defims/pen/YqwqGq)，返回行矩形数组，每个行矩形区域包含该行所有客户矩形区域
+- 然后计算不同`top`不同的客户矩形数量就是行数
+- 这里用客户矩形(client rect)而没用行框(line box)，内联框或者块级框，因为几者没有非常一致的对应，[示例](http://codepen.io/defims/pen/XdmPmV)可以看出，容器内联，不管子元素内联还是块级，都可以通过判断`getClientRects`返回的客户矩形数组的不同高度个数得到行数
+- 进一步扩展为[getRowRects](http://codepen.io/defims/pen/YqwqGq)，返回行矩形数组，每个行矩形区域包含该行所有客户矩形区域
 
 ```javascript
 function getRowRects(element) {
@@ -83,20 +79,12 @@ function getRowRects(element) {
 }
 ```
 
-## 文字下挤
+### 下挤文字
 
 得到了行数也就得到了是否显示`...更多`的控制权，再看显示更多问题。直接遮盖会导致遮盖不全，达到挤出文字的效果就该浮动了。只要设定`...更多`浮动到指定位置即可。利用一个右浮动元素占位，将`...更多`右浮动同时清除右浮动即可定位。得到[示例](http://codepen.io/defims/pen/EKPgGO)
 
-## 实际应用
+### 结合应用
 
-结合两者得到实际应用方式
-
-### 前端手动检测（推荐）
-
-借助js检测，最简单的是在js插入内容后调用`getRowRects`判断是否过长，动态添加过长省略类，在过长省略类里定义相应样式，当文字不嵌套子标签时，直接用`getClientRects`，[示例](http://codepen.io/defims/pen/YqwGEb/)，当可能嵌套子标签时用`getClientRects`[示例](http://codepen.io/defims/pen/aNdmrX)
-
-### 动态监测选择器
-
-绑定一段多行省略js到一个选择器上，当有增删改符合选择器的元素时，自动处理，为适应子元素动态计算`...更多`位置，实际[示例](http://codepen.io/defims/pen/jqWMJG)
-
-
+- 借助js手动检测，在js设置`textContent`后，如果不嵌套子标签，则直接调用`getClientRects`判定是否过长，动态添加过长省略类，在过长省略类里定义相应样式，[示例](http://codepen.io/defims/pen/YqwGEb/)
+- 借助js手动检测，在js设置`textContent`后，如果嵌套子标签，则调调用`getRowRects`判断是否过长，动态添加过长省略类，在过长省略类里定义相应样式，[示例](http://codepen.io/defims/pen/aNdmrX)
+- 借助js动态检测，绑定一段多行省略js到一个选择器上，当有增删改符合选择器的元素时，自动处理，为适应子元素动态计算`...更多`位置，[示例](http://codepen.io/defims/pen/jqWMJG)
