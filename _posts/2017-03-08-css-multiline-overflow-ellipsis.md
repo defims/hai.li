@@ -42,6 +42,10 @@ tags: frontend wrap line-clamp 多行省略 css 黑科技 mobile
 
 <span>定制多行省略 <span style="color:red">=</span> 按需显示...更多 <span style="color:red">+</span> 文字溢出截断，按需显示...更多是用浮动特性实现，文字溢出阶段可以用前置浮动和line-clamp实现，QQ浏览器现有方案就是前置浮动，但缺点是高度固定，使用line-clamp则自适应高度，完美！限于篇幅，这里只提line-clamp的实现方案，QQ浏览器将在下阶段升级至该方案。
 
+<br/>
+<br/>
+<br/>
+
 ## 原理详解！
 
 <br/>
