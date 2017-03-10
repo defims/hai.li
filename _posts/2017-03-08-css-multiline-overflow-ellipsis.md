@@ -236,26 +236,32 @@ tags: frontend wrap line-clamp 多行省略 css 黑科技 mobile
 
 ### line-clamp<span style="red">3</span>宗罪
 
-![为什么](/assets/2017-03-08-css-multiline-overflow-ellipsis/why.gif)
+![和text-align:justify一起用会使省略号和文字相叠](/assets/2017-03-08-css-multiline-overflow-ellipsis/why.gif)
 
 和`text-align:justify`一起用会使省略号和文字相叠
 
-![为什么2](/assets/2017-03-08-css-multiline-overflow-ellipsis/why2.gif)
+![超出截断后会截掉部分行高](/assets/2017-03-08-css-multiline-overflow-ellipsis/why2.gif)
 
 超出截断后会截掉部分行高
 
-![为什么3](/assets/2017-03-08-css-multiline-overflow-ellipsis/why3.gif)
+![省略号可能出现在单词中间](/assets/2017-03-08-css-multiline-overflow-ellipsis/why3.gif)
+
+省略号可能出现在单词中间
 
 <br/>
 <br/>
 
 ### 定制省略当然某问题啦
 
-![为什么4](/assets/2017-03-08-css-multiline-overflow-ellipsis/why4.gif)
+![text-align:justify时如期所示，没问题！](/assets/2017-03-08-css-multiline-overflow-ellipsis/why4.gif)
 
 `text-align:justify`时如期所示，没问题！
 
-![为什么5](/assets/2017-03-08-css-multiline-overflow-ellipsis/why5.gif)
+![截断时如期所示，也没问题！](/assets/2017-03-08-css-multiline-overflow-ellipsis/why5.gif)
+
+截断时如期所示，也没问题！
+
+![省略号在有单词时如期显示，依然没问题！](/assets/2017-03-08-css-multiline-overflow-ellipsis/why11.gif)
 
 省略号在有单词时如期显示，依然没问题！
 
