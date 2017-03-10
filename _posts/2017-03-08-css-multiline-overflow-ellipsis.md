@@ -7,5 +7,5 @@ tags: frontend lines wrap line-clamp 多行省略 css
 
 ## 什么是多行省略？
 
-![什么是多行省略](../assets/img/what.jpg)
+![什么是多行省略](/assets/img/what.jpg)
 
