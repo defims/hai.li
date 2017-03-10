@@ -5,6 +5,8 @@ date: 2017-03-08 19:54:10
 tags: frontend wrap line-clamp 多行省略 css 黑科技 mobile
 ---
 
+转载请注明出处：http://hai.li/2017/03/08/css-multiline-overflow-ellipsis.html
+
 ## 什么是多行省略？
 
 ![什么是多行省略](/assets/2017-03-08-css-multiline-overflow-ellipsis/what.jpg)
