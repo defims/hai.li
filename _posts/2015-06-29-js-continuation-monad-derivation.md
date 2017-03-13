@@ -17,7 +17,7 @@ js(javascript)揉合了[面向对象](https://zh.wikipedia.org/wiki/%E9%9D%A2%E5
 
 ```haskell
 unit :: a -> monad a
-bind :: monad a -> (a -> monad b) -> b
+bind :: monad a -> (a -> monad b) -> monad b
 ```
 
 两个函数，unit函数输入一个参数a返回monad a，bind函数输入monad a和输入a返回monad b的函数，返回monad b
