@@ -28,3 +28,8 @@ layout: default
   </div>
 </div>
 {% endif %}
+
+{% if site.carnival %}
+<script src="https://carnivalapp.io/sites/{{ site.carnival }}/init.js"></script>
+<script>Carnival.init()</script>
+{% endif %}
