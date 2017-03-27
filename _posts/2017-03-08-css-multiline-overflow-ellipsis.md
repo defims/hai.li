@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "黑科技：CSS定制多行省略"
-date: 2017-03-08 19:54:10
+date: 2017-03-08 19:54:11
 tags: frontend wrap line-clamp 多行省略 css 黑科技 mobile
 ---
 
