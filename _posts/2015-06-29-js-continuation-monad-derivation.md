@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "js continuation monad简明推导"
+title: "函数式JS: 一种continuation monad推导"
 date: 2015-06-29 11:52:49
 tags: frontend javascript continuation monad
 ---
