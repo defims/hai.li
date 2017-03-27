@@ -150,6 +150,7 @@ function flatMap(ma){return function(g1) { /*b = g1(a);*/ return mb }}
 
 3. 这里`ma`和`g1`都是容器，通过回调得到输出结果，所以在`ma`的回调中执行`g1(a)`，再在`g1(a)`的回调中得到执行结果`v`，再将执行结果`v`赋值给外部变量`b`，最后将`b`用`unit`包裹成`Monad b`返回。
 
+
     ```javascript
     function flatMap(ma){
         return function(g1) {
@@ -164,12 +165,15 @@ function flatMap(ma){return function(g1) { /*b = g1(a);*/ return mb }}
     }
     ```
 
+
 4. 如果`g1`是立即执行的话，第`flatMap`的执行步骤是1--2--3，但如果2延迟执行步骤就变成了1--3--2，算上下一个`flatMap`就是1.1--1.3--1.2--2.1。2.1的`ma`就是1.2的`mb`，2.1的`ma`的参数`c`中执行了2.2和2.3，也就是1.3的`c`决定着2.1之后的步骤。如果将`c`赋值给`b`就可以在1.2执行完后才继续2.1之后的步骤，也就是：
 
+
 ```text
-        +--------------+
+        +-----------+
 1.1—1.2—1.3—2.1    2.2—2.3
 ```
+
 
 ```javascript
 function flatMap(ma){
@@ -185,7 +189,9 @@ function flatMap(ma){
 }
 ```
 
+
 5. 为了`flatMap`可以链接多个`flatMap`，也就是一个1.3被多个2.1消化，需要保存所有在2.1后的执行链 `c`，用数组`h`解决。
+
 
 ```javascript
 function flatMap(ma){
@@ -201,7 +207,9 @@ function flatMap(ma){
 }
 ```
 
+
 5. 整合1.2立即执行和延迟执行情况，代码如下：
+
 
 ```javascript
 function flatMap(ma){
@@ -222,7 +230,9 @@ function flatMap(ma){
 }
 ```
 
+
 6. 由于`g3`没有返回`mb`，所以还要加上对`g1`返回的不是容器的处理，代码如下：
+
 
 ```javascript
 function flatMap(ma){
@@ -245,7 +255,9 @@ function flatMap(ma){
 }
 ```
 
+
 7.现在可以测试下代码了
+
 
 ```javascript
 function unit(f){ return f }
@@ -279,6 +291,7 @@ flatMap(
 	)(g2)
 )(g3)
 ```
+
 
 ### 整合代码
 
@@ -377,6 +390,8 @@ monad.then(f).then(g) ==== monad.then(function(x) { f(x).then(g) }) //关联性
 ```
 
 1. 左单位元法则验证代码如下：
+
+
 ```javascript
 function newPromise(ma) {
 	ma.then = function(g){
@@ -395,7 +410,11 @@ var f = function(v){ return v + 2 }
 newPromise(function(resolve) { resolve(x) }).then(f).then(console.log) //3
 console.log(f(x)) //3
 ```
+
+
 2.右单位元法则验证代码如下：
+
+
 ```javascript
 function newPromise(ma) {
 	ma.then = function(g){
@@ -412,7 +431,11 @@ function newPromise(ma) {
 newPromise(function(resolve) { resolve(1) }).then(newPromise).then(console.log) //1
 newPromise(function(resolve) { resolve(1) }).then(console.log)  //1
 ```
+
+
 3.关联性法则验证代码如下：
+
+
 ```javascript
 function newPromise(ma) {
 	ma.then = function(g){
@@ -431,6 +454,7 @@ var g = function(v) { return newPromise(function(resolve) { resolve(v+3) }) }
 newPromise(function(resolve) { resolve(1) }).then(f).then(g).then(console.log) //6
 newPromise(function(resolve) { resolve(1) }).then(function(x) { return f(x).then(g) }).then(console.log)  //6
 ```
+
 
 ### 如此，原来Promise是这样的Monad！
 
