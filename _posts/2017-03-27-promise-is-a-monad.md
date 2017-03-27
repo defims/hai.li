@@ -135,9 +135,11 @@ function flatMap(ma){
 
 1. 由`flatMap :: Monad a -> (a -> Monad b) -> Monad b`知道`flatMap`传入`Monad a`返回函数，这个函数接收`(a -> Monad b)`返回`Monad b`，而`(a -> Monad b)`对应`g1`。可以构造`flatMap`如下
 
+
 ```javascript
 function flatMap(ma){return function(g1) { /*b = g1(a);*/ return mb }}
 ```
+
 
 2. 实际`flatMap`做了3步工作
 
