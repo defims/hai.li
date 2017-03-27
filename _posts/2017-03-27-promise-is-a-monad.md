@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "js continuation monad简明推导"
+title: "原来promise是这样的monad"
 date: 2017-03-27 19:51:02
 tags: frontend javascript promise fp monad
 ---
