@@ -143,6 +143,7 @@ function flatMap(ma){return function(g1) { /*b = g1(a);*/ return mb }}
     2. 将`a`传到`g1`中执行
     3. 将执行结果`b`包裹成`mb`返回
 
+
 3. 这里`ma`和`g1`都是容器，通过回调得到输出结果，所以在`ma`的回调中执行`g1(a)`，再在`g1(a)`的回调中得到执行结果`v`，再将执行结果`v`赋值给外部变量`b`，最后将`b`用`unit`包裹成`Monad b`返回。
 ```javascript
 function flatMap(ma){
