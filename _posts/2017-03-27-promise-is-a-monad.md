@@ -134,9 +134,11 @@ function flatMap(ma){
 ```
 
 1. 由`flatMap :: Monad a -> (a -> Monad b) -> Monad b`知道`flatMap`传入`Monad a`返回函数，这个函数接收`(a -> Monad b)`返回`Monad b`，而`(a -> Monad b)`对应`g1`。可以构造`flatMap`如下
+
 ```javascript
 function flatMap(ma){return function(g1) { /*b = g1(a);*/ return mb }}
 ```
+
 2. 实际`flatMap`做了3步工作
 
     1. 解包`ma`取出`a`
@@ -145,24 +147,28 @@ function flatMap(ma){return function(g1) { /*b = g1(a);*/ return mb }}
 
 
 3. 这里`ma`和`g1`都是容器，通过回调得到输出结果，所以在`ma`的回调中执行`g1(a)`，再在`g1(a)`的回调中得到执行结果`v`，再将执行结果`v`赋值给外部变量`b`，最后将`b`用`unit`包裹成`Monad b`返回。
-```javascript
-function flatMap(ma){
-	return function(g1) {
-		var b;
-		ma(function(a) {
-			g1(a)(function(v) {
-				b = v
-			})
-		});
-		return unit(function(c) {c(b)})
-	}
-}
-```
+
+    ```javascript
+    function flatMap(ma){
+        return function(g1) {
+            var b;
+            ma(function(a) {
+                g1(a)(function(v) {
+                    b = v
+                })
+            });
+            return unit(function(c) {c(b)})
+        }
+    }
+    ```
+
 4. 如果`g1`是立即执行的话，第`flatMap`的执行步骤是1--2--3，但如果2延迟执行步骤就变成了1--3--2，算上下一个`flatMap`就是1.1--1.3--1.2--2.1。2.1的`ma`就是1.2的`mb`，2.1的`ma`的参数`c`中执行了2.2和2.3，也就是1.3的`c`决定着2.1之后的步骤。如果将`c`赋值给`b`就可以在1.2执行完后才继续2.1之后的步骤，也就是：
+
 ```text
         +--------------+
 1.1—1.2—1.3—2.1    2.2—2.3
 ```
+
 ```javascript
 function flatMap(ma){
 	return function(g1) {
@@ -176,7 +182,9 @@ function flatMap(ma){
 	}
 }
 ```
+
 5. 为了`flatMap`可以链接多个`flatMap`，也就是一个1.3被多个2.1消化，需要保存所有在2.1后的执行链 `c`，用数组`h`解决。
+
 ```javascript
 function flatMap(ma){
 	return function(g1) {
@@ -190,7 +198,9 @@ function flatMap(ma){
 	}
 }
 ```
+
 5. 整合1.2立即执行和延迟执行情况，代码如下：
+
 ```javascript
 function flatMap(ma){
 	return function(g1) {
@@ -209,7 +219,9 @@ function flatMap(ma){
 	}
 }
 ```
+
 6. 由于`g3`没有返回`mb`，所以还要加上对`g1`返回的不是容器的处理，代码如下：
+
 ```javascript
 function flatMap(ma){
 	return function(g1) {
@@ -230,7 +242,9 @@ function flatMap(ma){
 	}
 }
 ```
+
 7.现在可以测试下代码了
+
 ```javascript
 function unit(f){ return f }
 function flatMap(ma) {
