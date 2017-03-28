@@ -115,18 +115,18 @@ function unit(f){ return f}
 ```javascript
 function flatMap(ma){
 	return function(g) {
-		var b, ga, h=[];
+		var b=[], ga, h=[];
 		ma(function(a) { //1. 解包`ma`取出`a`
 			ga = g(a); //2. 将`a`传到`g`中执行
 			(ga && ga.flatMap ? ga : unit(function(c) { c(ga) })) //处理g没返回unit情况
 				(function(v) {
-					b = v; // 1.1—1.2—1.3
+					b.push(v); // 1.1—1.2—1.3
 					h.map(function(c) {c(v)}) //1.1—1.3—1.2
 				})
 		});
 		return unit(function(c) { //3. 将执行结果`b`包裹成`mb`返回
-			b 
-			? c(b)  // 1.1—1.2—1.3—2.1
+			b.length 
+			? b.map(c)  // 1.1—1.2—1.3—2.1
 			: h.push(c) //1.1—1.3—1.2—2.1
 		})
 	}
@@ -208,22 +208,22 @@ function flatMap(ma){
 ```
 
 
-5. 整合1.2立即执行和延迟执行情况，代码如下：
+5. 整合1.2立即执行和延迟执行情况，同时适配多个1.3被多个2.1消化的情况，代码如下：
 
 
 ```javascript
 function flatMap(ma){
 	return function(g1) {
-	var b, h=[];
+	var b=[], h=[];
 	ma(function(a) {
 		g1(a)(function(v) {
-			b = v; // 1.1—1.2—1.3
+			b.push(v); // 1.1—1.2—1.3
 			h.map(function(c) {c(v)}) //1.1—1.3—1.2
 		})
 	});
 	return unit(function(c) { 
-		b 
-		? c(b)  // 1.1—1.2—1.3—2.1
+		b.length 
+		? b.map(c)  // 1.1—1.2—1.3—2.1
 		: h.push(c) //1.1—1.3—1.2—2.1
 	})
 	}
@@ -237,18 +237,18 @@ function flatMap(ma){
 ```javascript
 function flatMap(ma){
 	return function(g1) {
-		var b, g1a, h=[];
+		var b=[], g1a, h=[];
 		ma(function(a) {
 			g1a = g1(a);
 			(g1a && typeof(g1a) == "function" ? g1a : unit(function(c) { c(g1a) }))
 				(function(v) {
-					b = v; // 1.1—1.2—1.3
+					b.push(v); // 1.1—1.2—1.3
 					h.map(function(c) {c(v)}) //1.1—1.3—1.2
 				})
 		});
 		return unit(function(c) { 
-			b 
-			? c(b)  // 1.1—1.2—1.3—2.1
+			b.length 
+			? b.map(c)  // 1.1—1.2—1.3—2.1
 			: h.push(c) //1.1—1.3—1.2—2.1
 		})
 	}
@@ -263,18 +263,18 @@ function flatMap(ma){
 function unit(f){ return f }
 function flatMap(ma) {
 	return function(g) {
-		var b, ga, h=[];
+		var b=[], ga, h=[];
 		ma(function(a) { //1. 解包`ma`取出`a`
 			ga = g(a); //2. 将`a`传到`g`中执行
 			(ga && typeof(ga) == "function"? ga : unit(function(c) { c(ga) })) //处理g没返回unit情况
 				(function(v) {
-					b = v; // 1.1—1.2—1.3
+					b.push(v); // 1.1—1.2—1.3
 					h.map(function(c) {c(v)}) //1.1—1.3—1.2
 				})
 		});
 		return unit(function(c) { //3. 将执行结果`b`包裹成`mb`返回
-			b 
-			? c(b)  // 1.1—1.2—1.3—2.1
+			b.length 
+			? b.map(c)  // 1.1—1.2—1.3—2.1
 			: h.push(c) //1.1—1.3—1.2—2.1
 		})
 	}
@@ -300,18 +300,18 @@ flatMap(
 ```javascript
 function unit(ma) {
 	ma.flatMap = function(g){
-		var b, ga, h=[];
+		var b=[], ga, h=[];
 		ma(function(a) { //1. 解包`ma`取出`a`
 			ga = g(a); //2. 将`a`传到`g`中执行
 			(ga && ga.flatMap ? ga : unit(function(c) { c(ga) })) //处理g没返回unit情况
 				(function(v) {
-					b = v; // 1.1—1.2—1.3
+					b.push(v); // 1.1—1.2—1.3
 					h.map(function(c) {c(v)}) //1.1—1.3—1.2
 				})
 		});
 		return unit(function(c) { //3. 将执行结果`b`包裹成`mb`返回
-			b 
-			? c(b)  // 1.1—1.2—1.3—2.1
+			b.length 
+			? b.map(c)  // 1.1—1.2—1.3—2.1
 			: h.push(c) //1.1—1.3—1.2—2.1
 		})
 	}
@@ -331,13 +331,13 @@ unit(g0).flatMap(g1).flatMap(g2).flatMap(g3)
 ```javascript
 function newPromise(ma) {
 	ma.then = function(g){
-		var b, ga, h=[];
+		var b=[], ga, h=[];
 		ma(function(a) {
 			ga = g(a);
 			(ga && ga.then ? ga : newPromise(function(c) { c(ga) }))
-				(function(v) { b = v; h.map(function(c) {c(v)}) })
+				(function(v) { b.push(v); h.map(function(c) {c(v)}) })
 		});
-		return newPromise(function(c) { b ? c(b) : h.push(c) })
+		return newPromise(function(c) { b.length ? b.map(c) : h.push(c) })
 	}
 	return ma
 }
@@ -395,13 +395,13 @@ monad.then(f).then(g) ==== monad.then(function(x) { f(x).then(g) }) //关联性
 ```javascript
 function newPromise(ma) {
 	ma.then = function(g){
-		var b, ga, h=[];
+		var b=[], ga, h=[];
 		ma(function(a) {
 			ga = g(a);
 			(ga && ga.then ? ga : newPromise(function(c) { c(ga) }))
-				(function(v) { b = v; h.map(function(c) {c(v)}) })
+				(function(v) { b.push(v); h.map(function(c) {c(v)}) })
 		});
-		return newPromise(function(c) { b ? c(b) : h.push(c) })
+		return newPromise(function(c) { b.length ? b.map(c) : h.push(c) })
 	}
 	return ma
 }
@@ -418,13 +418,13 @@ console.log(f(x)) //3
 ```javascript
 function newPromise(ma) {
 	ma.then = function(g){
-		var b, ga, h=[];
+		var b=[], ga, h=[];
 		ma(function(a) {
 			ga = g(a);
 			(ga && ga.then ? ga : newPromise(function(c) { c(ga) }))
-				(function(v) { b = v; h.map(function(c) {c(v)}) })
+				(function(v) { b.push(v); h.map(function(c) {c(v)}) })
 		});
-		return newPromise(function(c) { b ? c(b) : h.push(c) })
+		return newPromise(function(c) { b.length ? b.map(c) : h.push(c) })
 	}
 	return ma
 }
@@ -439,13 +439,13 @@ newPromise(function(resolve) { resolve(1) }).then(console.log)  //1
 ```javascript
 function newPromise(ma) {
 	ma.then = function(g){
-		var b, ga, h=[];
+		var b=[], ga, h=[];
 		ma(function(a) {
 			ga = g(a);
 			(ga && ga.then ? ga : newPromise(function(c) { c(ga) }))
-				(function(v) { b = v; h.map(function(c) {c(v)}) })
+				(function(v) { b.push(v); h.map(function(c) {c(v)}) })
 		});
-		return newPromise(function(c) { b ? c(b) : h.push(c) })
+		return newPromise(function(c) { b.length ? b.map(c) : h.push(c) })
 	}
 	return ma
 }
