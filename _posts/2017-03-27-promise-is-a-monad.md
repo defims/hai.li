@@ -5,6 +5,8 @@ date: 2017-03-27 19:51:02
 tags: frontend javascript promise fp monad 函数式
 ---
 
+转载请注明出处： http://hai.li/2017/03/27/promise-is-a-monad.html
+
 ## 背景
 
 上篇文章 [函数式JS: 一种continuation monad推导](http://hai.li/2015/06/29/js-continuation-monad-derivation.html) 得到了一个类似promise的链式调用，引发了这样的思考：难道promise是monad？如果是的话又是怎样的monad呢？来来来，哥哥带你推倒，哦，不，是推导一下！
