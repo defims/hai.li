@@ -31,7 +31,7 @@ google_analytics: UA-93485225-1
 
 
 # Build settings
-markdown: redcarpet
+markdown: kramdown
 redcarpet:
     extensions: ["fenced_code_blocks", "autolink", "tables", "strikethrough"]
 # markdown: kramdown
