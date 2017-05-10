@@ -29,7 +29,6 @@ layout: default
 </div>
 {% endif %}
 
-<<<<<<< HEAD
 {% if site.site.gitment_id %}
 <div class="comment"></div>
   <link rel="stylesheet" href="{{ "/css/gitment.css" | prepend: site.baseurl }}">
@@ -42,13 +41,11 @@ new Gitment({
   oauth: {
     client_id: '{{ site.gitment_id }}',
     client_secret: '{{ site.gitment_secret }}',
-  },
-  // ...
-  // For more available options, check out the documentation below
+  }
 }).render('comment')
 </script>
 {% endif %}
-=======
+
 {% if site.carnival %}
 <script src="https://carnivalapp.io/sites/{{ site.carnival }}/init.js"></script>
 <script>
@@ -74,4 +71,3 @@ var duoshuoQuery = {short_name:"haili"};
 	</script>
 <!-- 多说公共JS代码 end -->
 {% endif %}
->>>>>>> github/gh-pages
