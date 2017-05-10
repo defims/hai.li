@@ -29,6 +29,7 @@ layout: default
 </div>
 {% endif %}
 
+<<<<<<< HEAD
 {% if site.site.gitment_id %}
 <div class="comment"></div>
   <link rel="stylesheet" href="{{ "/css/gitment.css" | prepend: site.baseurl }}">
@@ -47,3 +48,30 @@ new Gitment({
 }).render('comment')
 </script>
 {% endif %}
+=======
+{% if site.carnival %}
+<script src="https://carnivalapp.io/sites/{{ site.carnival }}/init.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", Carnival.init);
+</script>
+{% endif %}
+
+{% if site.duoshuo %}
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="{{ page.url }}" data-title="{{ page.title }}" data-url="{{ page.url }}"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"haili"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+{% endif %}
+>>>>>>> github/gh-pages

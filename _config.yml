@@ -22,18 +22,18 @@ codepen:  defims
 
 # Comment
 #disqus_shortname: hai-li
-
-# gitment
 gitment_id: e7368ae404b1a910370d
 gitment_secret: 3c4734cc2902bd41aca6d4d1770eb5f5d33acacb
+# carnival: 635
+#duoshuo: haili
 
 
 # Google Analytics
-# google_analytics: tracking_ID
+google_analytics: UA-93485225-1
 
 
 # Build settings
-markdown: redcarpet
+markdown: kramdown
 redcarpet:
     extensions: ["fenced_code_blocks", "autolink", "tables", "strikethrough"]
 # markdown: kramdown
