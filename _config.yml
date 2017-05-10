@@ -23,6 +23,10 @@ codepen:  defims
 # Comment
 disqus_shortname: hai-li
 
+# gitment
+gitment_id: e7368ae404b1a910370d
+gitment_secret: 3c4734cc2902bd41aca6d4d1770eb5f5d33acacb
+
 
 # Google Analytics
 # google_analytics: tracking_ID

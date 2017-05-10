@@ -28,3 +28,22 @@ layout: default
   </div>
 </div>
 {% endif %}
+
+{% if site.site.gitment_id %}
+<div class="comment"></div>
+  <link rel="stylesheet" href="{{ "/css/gitment.css" | prepend: site.baseurl }}">
+<script src="{{ "/assets/js/gitment.browser.js" | prepend: site.baseurl }}"></script>
+<script>
+new Gitment({
+  id: '{{ site.title }}', // optional
+  owner: '{{ site.github }}',
+  repo: 'hai.li',
+  oauth: {
+    client_id: '{{ site.gitment_id }}',
+    client_secret: '{{ site.gitment_secret }}',
+  },
+  // ...
+  // For more available options, check out the documentation below
+}).render('comment')
+</script>
+{% endif %}
