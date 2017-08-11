@@ -27,6 +27,9 @@ disqus_shortname: hai-li
 # carnival: 635
 #duoshuo: haili
 
+gitalk_id: e7368ae404b1a910370d
+gitalk_secret: 3c4734cc2902bd41aca6d4d1770eb5f5d33acacb
+
 
 # Google Analytics
 google_analytics: UA-93485225-1
