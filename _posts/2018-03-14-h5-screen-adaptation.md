@@ -5,7 +5,7 @@ date: 2018-03-14 19:22:10
 tags: frontend 屏幕适配 分层 读设计稿 css mobile
 ---
 
-转载请注明出处：http://hai.li/2018/03/14/h5-screen-adaptation.html
+转载请注明出处：[http://hai.li/2018/03/14/h5-screen-adaptation.html](http://hai.li/2018/03/14/h5-screen-adaptation.html)
 
 
 ## 屏幕适配
