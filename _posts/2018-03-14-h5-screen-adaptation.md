@@ -90,7 +90,7 @@ tags: frontend 屏幕适配 分层 读设计稿 css mobile
 
 ### 公式
 
-推导过程见 [H5 分层屏幕适配公式推导](http://hai.li/2018/03/14/h5-screen-adaptation-formula-derivation")
+推导过程见 [H5 分层屏幕适配公式推导](http://hai.li/2018/03/14/h5-screen-adaptation-formula-derivation)
 
 ```text
 设计稿
