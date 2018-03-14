@@ -14,7 +14,7 @@ tags: frontend 屏幕适配 分层 读设计稿 公式推导 css mobile
 
 有时我们需要的是设计稿宽高比 `v/g` 大于屏幕宽高比 `u/f` 时设计稿宽 `v1` 等于屏幕宽 `u` ，否则设计稿高 `g1` 等于屏幕高 `f`。求满足要求得设计稿缩放值  `s` ？
 
-![](http://km.oa.com/files/photos/pictures/201803/1520340171_19_w1482_h652.png)
+![](/assets/2018-03-14-h5-screen-adaptation-formula-derivation/scale2.png)
 
 ```text
 由条件可得 
@@ -114,7 +114,7 @@ h3 = h*sy
 
 缩放后还需要确定在容器中的定位，常见的就是贴边和居中。实际上就是求元素贴边或居中的坐标 `(x2, y2)`
 
-![](http://km.oa.com/files/photos/pictures/201803/1520584276_62_w703_h459.png)
+![](/assets/2018-03-14-h5-screen-adaptation-formula-derivation/position2.png)
 
 已知设计稿宽 `v` 高 `g` ，其中任意元素的宽 `w` 高 `h` 和坐标 `(x, y)` ，横向左留白占总留白的比值为 `m` ，纵向上留白占总留白的比值为 `n`，假设设计稿尺寸到实际尺寸缩放了 `s` 倍，求经过屏幕适配后该元素的实际宽 `w2` 高 `h2`和坐标`(x2, y2)`?
 
@@ -197,7 +197,7 @@ y2 + y1 = n*f - n*g*s + y*s
 
 ### 占满适配屏幕
 
-![](http://km.oa.com/files/photos/pictures/201803/1520584150_60_w752_h459.png)
+![](/assets/2018-03-14-h5-screen-adaptation-formula-derivation/position3.png)
 
 #### 原理
 
