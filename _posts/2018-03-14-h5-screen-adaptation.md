@@ -228,7 +228,7 @@ svg image {
 }
 </style>
 <svg viewBox="0 0 544 142" preserveAspectRatio="xMinYMin meet"> <!-- 容器 -->
-  <image xlink:href="http://ui.qzone.com/544x142"/> <!-- 元素 -->
+  <image width="544" height="142" xlink:href="http://ui.qzone.com/544x142"/> <!-- 元素 -->
 </svg>
 </body>
 </html>
